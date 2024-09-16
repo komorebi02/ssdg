@@ -3,4 +3,14 @@ const withNextra = require('nextra')({
   themeConfig: './theme.config.tsx',
 })
 
-module.exports = withNextra()
+module.exports = withNextra({
+  webpack(config, options) {
+    // Add support for importing SVGs as React components
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+
+    return config;
+  },
+});
